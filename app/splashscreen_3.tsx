@@ -37,7 +37,7 @@ export default function splashscreen3() {
       {/* Button */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.replace('/Login')}
+        onPress={() => router.replace('/login')}
         activeOpacity={0.85}
       >
         <Text style={styles.buttonText}>Start shopping</Text>
