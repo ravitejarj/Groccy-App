@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HelpScreen() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function HelpScreen() {
             <Text style={styles.cardText}>Call Support</Text>
             <Ionicons name="chevron-forward" size={18} color="#999" style={styles.chevron} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cardBtn} activeOpacity={0.8} onPress={() => router.push('/chat-support')}>
+          <TouchableOpacity style={styles.cardBtn} activeOpacity={0.8} onPress={() => router.push('/chat_support')}>
             <Ionicons name="chatbubble-ellipses-outline" size={20} color="#333" style={styles.cardIcon} />
             <Text style={styles.cardText}>Chat with Support</Text>
             <Ionicons name="chevron-forward" size={18} color="#999" style={styles.chevron} />

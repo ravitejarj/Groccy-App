@@ -56,7 +56,7 @@ const SignUpScreen = () => {
         JSON.stringify({ ...parsedUser, firstName, lastName })
       );
 
-      router.replace('/SetLocation');
+      router.replace('/set_location');
     } catch (err) {
       Alert.alert('Error', err.response?.data?.message || 'Failed to save name.');
     }

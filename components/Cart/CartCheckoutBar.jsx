@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function CartCheckoutBar({ total }) {
   const router = useRouter();
@@ -8,7 +8,7 @@ export default function CartCheckoutBar({ total }) {
   return (
     <View style={styles.stickyFooter}>
       <Text style={styles.totalText}>Subtotal: ${total.toFixed(2)}</Text>
-      <TouchableOpacity style={styles.checkoutBtn} onPress={() => router.push('/checkout')}>
+      <TouchableOpacity style={styles.checkoutBtn} onPress={() => router.push('/checkout_screen')}>
         <Text style={styles.checkoutText}>Checkout</Text>
       </TouchableOpacity>
     </View>

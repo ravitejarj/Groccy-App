@@ -11,7 +11,7 @@ const HomeHeader = ({ address, style }) => {
   };
 
   const handleLocationPress = () => {
-    router.push('/address-update');
+    router.push('/address_update');
   };
 
   return (

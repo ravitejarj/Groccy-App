@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -22,7 +22,7 @@ const SetLocation = () => {
     try {
       const { latitude, longitude } = await getAccurateCurrentLocation();
       router.push({
-        pathname: '/ConfirmLocationScreen',
+        pathname: '/confirm_location_screen',
         params: {
           lat: latitude.toString(),
           lng: longitude.toString(),

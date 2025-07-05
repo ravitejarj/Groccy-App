@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
 import { fetchOrdersTabData } from '@/services/OrderService';
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const OrdersScreen = () => {
   const [activeTab, setActiveTab] = useState('current');
@@ -42,8 +42,8 @@ const OrdersScreen = () => {
   const handleOrderPress = (order) => {
     const trackingStatuses = ['confirmed', 'on_the_way'];
     const destination = trackingStatuses.includes(order.status)
-      ? '/order-track'
-      : '/order-summary';
+      ? '/order_track'
+      : '/order_summary';
 
     router.push({
       pathname: destination,

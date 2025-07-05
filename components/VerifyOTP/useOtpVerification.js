@@ -51,7 +51,7 @@ const useOtpVerification = ({ inputRefs, router }) => {
 
       const addresses = addressRes.data;
       if (!addresses || addresses.length === 0) {
-        router.replace('/SetLocation');
+        router.replace('/set_location');
       } else {
         router.replace('/(tabs)');
       }

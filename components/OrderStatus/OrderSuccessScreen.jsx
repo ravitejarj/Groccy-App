@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  BackHandler,
-} from 'react-native';
-import LottieView from 'lottie-react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter, useLocalSearchParams } from 'expo-router';
 import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  BackHandler,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const API_URL = 'http://192.168.1.150:5000/api';
 
@@ -53,7 +53,7 @@ export default function OrderSuccessScreen() {
   const handleTrackOrder = () => {
     if (order?.orderId) {
       router.push({
-        pathname: '/order-track',
+        pathname: '/order_track',
         params: { orderId: order.orderId },
       });
     }

@@ -1,15 +1,14 @@
 // components/OrderStatus/OrderFailedScreen.jsx
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import LottieView from 'lottie-react-native';
-import { useRouter } from 'expo-router';
 import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function OrderFailedScreen() {
   const router = useRouter();
@@ -19,7 +18,7 @@ export default function OrderFailedScreen() {
   const storeName = 'Desi Brothers';
   const amount = '$22.45';
 
-  const handleRetry = () => router.push('/checkout');
+  const handleRetry = () => router.push('/checkout_screen');
   const handleContactSupport = () => router.push('/help');
   const handleGoHome = () => router.push('/(tabs)');
 

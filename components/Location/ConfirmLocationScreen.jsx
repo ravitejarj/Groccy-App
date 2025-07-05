@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert, SafeAreaView, Text, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, SafeAreaView, StyleSheet, Text } from 'react-native';
 
+import ConfirmLocationFooter from './ConfirmLocationFooter';
 import LocationMap from './LocationMap';
 import LocationSearchBar from './LocationSearchBar';
-import ConfirmLocationFooter from './ConfirmLocationFooter';
 
-import { getNearbyVendors } from '@/services/NearbyVendorsService';
-import { getPlaceDetails } from '@/services/GooglePlacesService';
 import { getAccurateCurrentLocation } from '@/helpers/GeoLocationHelper';
 import { animateToLocation } from '@/helpers/MapCameraHelper';
+import { getPlaceDetails } from '@/services/GooglePlacesService';
+import { getNearbyVendors } from '@/services/NearbyVendorsService';
 
 const ConfirmLocationScreen = () => {
   const router = useRouter();
@@ -65,7 +65,7 @@ const ConfirmLocationScreen = () => {
       setVendorCircle(vendors[0]);
 
       router.push({
-        pathname: '/AddressForm',
+        pathname: '/address_form',
         params: {
           lat: region.latitude.toString(),
           lng: region.longitude.toString(),

@@ -1,10 +1,10 @@
+import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { useRouter } from 'expo-router';
-import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+import LogoutModal from './LogoutModal';
 import ProfileHeader from './ProfileHeader';
 import ProfileSectionCard from './ProfileSectionCard';
-import LogoutModal from './LogoutModal';
 
 export default function ProfileScreen() {
   const [logoutVisible, setLogoutVisible] = useState(false);
@@ -20,21 +20,21 @@ export default function ProfileScreen() {
         <ProfileSectionCard
           title="ACCOUNT"
           items={[
-            { label: '📝 Edit Profile', route: '/profile-update' },
-            { label: '📍 My Address', route: '/address-update' },
+            { label: '📝 Edit Profile', route: '/profile_update' },
+            { label: '📍 My Address', route: '/address_update' },
             { label: '🧾 My Orders', onPress: () => router.push('/orders') },
           ]}
         />
 
         <ProfileSectionCard
           title="PAYMENTS"
-          items={[{ label: '💳 Saved Cards', onPress: () => router.push('/payment-methods') }]}
+          items={[{ label: '💳 Saved Cards', onPress: () => router.push('/payment_methods') }]}
         />
 
         <ProfileSectionCard
           title="SUPPORT"
           items={[
-            { label: '📬 Contact Us', route: '/contact-us' },
+            { label: '📬 Contact Us', route: '/contact_us' },
             { label: '💬 Help & Support', route: '/help' },
             { label: '❓ FAQ', route: '/faq' },
             { label: '📄 Terms & Privacy', onPress: () => {} },

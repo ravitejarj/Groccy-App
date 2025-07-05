@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter, useLocalSearchParams } from 'expo-router';
 import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
-import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import OrderItemCard from './OrderItemCard';
 import AddressInfoCard from '@/components/Checkout/AddressInfoCard';
 import PaymentInfoCard from '@/components/Checkout/PaymentInfoCard';
+import OrderItemCard from './OrderItemCard';
 import OrderTotalSummaryCard from './OrderTotalSummaryCard';
 
 const API_URL = 'http://192.168.1.150:5000/api';
@@ -123,7 +123,7 @@ export default function OrderSummaryScreen() {
         {/* 💬 Help Section */}
         <View style={styles.helpWrapper}>
           <Text style={styles.helpText}>Need help with this order?</Text>
-          <TouchableOpacity onPress={() => router.push('/chat-support')}>
+          <TouchableOpacity onPress={() => router.push('/chat_support')}>
             <Text style={styles.helpLink}>💬 Chat with Support</Text>
           </TouchableOpacity>
         </View>

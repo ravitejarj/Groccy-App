@@ -1,13 +1,12 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   ActivityIndicator,
-  Alert,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
 const ConfirmLocationFooter = ({ address, city, onConfirm, checking, notServiceable }) => {
   const router = useRouter();
@@ -39,7 +38,7 @@ const ConfirmLocationFooter = ({ address, city, onConfirm, checking, notServicea
 
       <TouchableOpacity
         style={styles.manualButton}
-        onPress={() => router.push('/AddressForm')}
+        onPress={() => router.push('/address_form')}
       >
         <Text style={styles.manualButtonText}>Enter Address Manually</Text>
       </TouchableOpacity>

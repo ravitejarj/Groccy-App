@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
 import axios from 'axios';
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Alert, ScrollView, StyleSheet } from 'react-native';
 
 import AddressInfoCard from './AddressInfoCard';
-import PaymentInfoCard from './PaymentInfoCard';
-import OrderSummaryCard from './OrderSummaryCard';
 import FinalOrderSummaryCard from './FinalOrderSummaryCard';
+import OrderSummaryCard from './OrderSummaryCard';
+import PaymentInfoCard from './PaymentInfoCard';
 
+import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
 import { getUserAddress, getUserDetails } from '@/services/AddressService';
 import { getSavedCards } from '@/services/SavedCardService';
-import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
 import { useCart } from '../Cart/CartContext';
 
 const API_URL = 'http://192.168.1.150:5000/api';
@@ -78,13 +78,13 @@ export default function CheckoutScreen() {
       const orderId = response.data?.order?.orderId || response.data?.orderId;
       if (orderId) {
         await clearCart();
-        router.push(`/order-success?orderId=${orderId}`);
+        router.push(`/order_success?orderId=${orderId}`);
       } else {
         throw new Error('Order ID missing in response');
       }
     } catch (error) {
       console.error('❌ Order failed:', error.message);
-      router.push('/order-failed');
+      router.push('/order_failed');
     }
   };
 
@@ -95,12 +95,12 @@ export default function CheckoutScreen() {
         <AddressInfoCard
           address={address}
           user={user}
-          onEditAddress={() => router.push('/address-update')}
+          onEditAddress={() => router.push('/address_update')}
         />
 
         <PaymentInfoCard
           card={card}
-          onEditCard={() => router.push('/payment-methods')}
+          onEditCard={() => router.push('/payment_methods')}
         />
 
         <OrderSummaryCard
