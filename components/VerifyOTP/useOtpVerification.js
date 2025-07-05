@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { verifyOtp } from '@/services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { verifyOtp } from '@/services/auth';
+import { useState } from 'react';
 import { Alert } from 'react-native';
 
 const useOtpVerification = ({ inputRefs, router }) => {
@@ -38,7 +38,7 @@ const useOtpVerification = ({ inputRefs, router }) => {
       await AsyncStorage.setItem('user', JSON.stringify(user));
 
       if (!user.firstName || user.firstName.trim() === '') {
-        router.replace('/SignUpStep_1');
+        router.replace('/signup');
         return;
       }
 
