@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   inputLabel: {
     color: '#888',
     fontSize: 14,
@@ -27,29 +27,6 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
-  link: {
-    color: '#FF5722',
-    fontWeight: 'bold',
-  },
-  divider: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 16,
-  },
-  dividerLine: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#eee',
-  },
-  dividerText: {
-    marginHorizontal: 8,
-    color: '#888',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
   iconHeader: {
     alignItems: 'center',
     marginBottom: 16,
@@ -62,3 +39,5 @@ export default StyleSheet.create({
     color: '#222',
   },
 });
+
+export default styles;

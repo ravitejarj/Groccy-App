@@ -1,13 +1,32 @@
-import React, { useState } from 'react';
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
-import { useRouter } from 'expo-router';
+import AuthBackground from '@/components/Common/AuthBackground';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import AuthBackground from '@/components/Common/AuthBackground';
-import { FormInput } from './FromElements';
-import styles from './styles';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import {
+  Alert,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
-const Signup = () => {
+// ✅ Reusable FormInput
+const FormInput = ({ label, value, onChangeText, placeholder, ...props }) => (
+  <View>
+    <Text style={styles.inputLabel}>{label}</Text>
+    <TextInput
+      style={styles.input}
+      value={value}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      placeholderTextColor="#999"
+      {...props}
+    />
+  </View>
+);
+
+const SignUpScreen = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [saving, setSaving] = useState(false);
@@ -29,14 +48,9 @@ const Signup = () => {
       await axios.put(
         `http://192.168.1.150:5000/api/users/${userId}`,
         { firstName, lastName },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // ✅ Optionally update AsyncStorage user info
       await AsyncStorage.setItem(
         'user',
         JSON.stringify({ ...parsedUser, firstName, lastName })
@@ -73,14 +87,19 @@ const Signup = () => {
       </View>
 
       <TouchableOpacity
-        style={[styles.button, (!firstName || !lastName) && { opacity: 0.5 }]}
+        style={[
+          styles.button,
+          (!firstName || !lastName || saving) && { opacity: 0.5 },
+        ]}
         onPress={handleSubmit}
         disabled={!firstName || !lastName || saving}
       >
-        <Text style={styles.buttonText}>{saving ? 'Saving...' : 'Continue'}</Text>
+        <Text style={styles.buttonText}>
+          {saving ? 'Saving...' : 'Continue'}
+        </Text>
       </TouchableOpacity>
     </AuthBackground>
   );
 };
 
-export default Signup;
+export default SignUpScreen;
