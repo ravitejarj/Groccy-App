@@ -1,21 +1,21 @@
 // File: components/Login/LoginScreen.jsx
 import AuthBackground from '@/components/Common/AuthBackground';
+import { sendOtp } from '@/services/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  BackHandler,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import { sendOtp } from '@/services/auth';
-import MobileInput from './MobileInput';
 import * as Animatable from 'react-native-animatable';
+import MobileInput from './MobileInput';
 
 const LoginScreen = () => {
   const [phone, setPhone] = useState('');
@@ -46,7 +46,7 @@ const LoginScreen = () => {
       const fullPhone = `+1${trimmedPhone}`;
       await sendOtp({ phone: fullPhone });
       await AsyncStorage.setItem('phone', fullPhone);
-      router.push('/verify-otp');
+      router.push('/verify_otp');
     } catch (err) {
       setError(err.message || 'Failed to send OTP');
     }
