@@ -5,6 +5,8 @@ export default function Layout() {
     <Stack initialRouteName="index">
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="splashscreen_1" options={{ headerShown: false }} />
+      <Stack.Screen name="splashscreen_2" options={{ headerShown: false }} />
+      <Stack.Screen name="splashscreen_3" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
     </Stack>
   );

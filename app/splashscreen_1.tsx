@@ -1,24 +1,25 @@
 import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Image, StatusBar, StyleSheet, View } from 'react-native';
 
-export default function SplashScreen() {
+export default function splashscreen() {
   const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      router.replace('/splashscreen_2');
     }, 2000);
-
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <Image
-        source={require('../assets/images/splash-icon.png')}
+        source={require('../assets/mobile_images/splash/splashscreen_1.jpg')}
         style={styles.image}
+        resizeMode="cover"
       />
-      <Text style={styles.title}>Welcome to Groccy</Text>
     </View>
   );
 }
@@ -26,18 +27,12 @@ export default function SplashScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6F4E8',
+    backgroundColor: '#FF6A17',
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
-    width: 120,
-    height: 120,
-    marginBottom: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    width: '100%',
+    height: '100%',
   },
 });
