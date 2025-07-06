@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import React from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import SafeAreaWrapper from '../../components/Common/SafeAreaWrapper';
-import CartItem from './CartItem';
-import CartCheckoutBar from './CartCheckoutBar';
 import OrderSummaryCard from '@/components/Checkout/OrderSummaryCard';
-import EmptyCart from './EmptyCartScreen';
+import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
+
+import CartCheckoutBar from './CartCheckoutBar';
 import { useCart } from './CartContext';
+import CartItem from './CartItem';
+import EmptyCart from './EmptyCartScreen';
 import VendorHeaderCard from './VendorHeaderCard';
+
+import { calculateCartTotal } from './helpers/calculateCartTotal';
+import { useCartScreenLogic } from './hooks/useCartScreenLogic';
 
 export default function CartScreen() {
   const router = useRouter();
@@ -26,44 +30,16 @@ export default function CartScreen() {
     addToCart,
     decreaseQty,
     removeFromCart,
-    loadCart,
   } = useCart();
 
-  useEffect(() => {
-    loadCart();
-  }, []);
+  const { handleAdd, handleRemove, handleDelete } = useCartScreenLogic({
+    cartItems,
+    addToCart,
+    decreaseQty,
+    removeFromCart,
+  });
 
-  const handleAdd = (id) => {
-    const product = cartItems.find((item) => item.productId === id);
-    if (product) {
-      addToCart(product, product.vendorId);
-    }
-  };
-
-  const handleRemove = (id) => {
-    const product = cartItems.find((item) => item.productId === id);
-    if (product) {
-      if (product.quantity === 1) {
-        removeFromCart(id, product.vendorId);
-      } else {
-        decreaseQty(id, product.quantity - 1, product.vendorId);
-      }
-    }
-  };
-
-  const handleDelete = (id) => {
-    const product = cartItems.find((item) => item.productId === id);
-    if (product) {
-      removeFromCart(id, product.vendorId);
-    }
-  };
-
-  const itemTotal = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  const deliveryFee = 0;
-  const total = itemTotal + deliveryFee;
+  const { itemTotal, total } = calculateCartTotal(cartItems, 0);
 
   if (!cartItems || cartItems.length === 0) {
     return <EmptyCart />;
@@ -89,7 +65,6 @@ export default function CartScreen() {
               {storeName !== '' && (
                 <VendorHeaderCard name={storeName} address={storeAddress} />
               )}
-
               <View style={styles.section}>
                 {cartItems.map((item) => (
                   <CartItem
@@ -104,7 +79,7 @@ export default function CartScreen() {
 
               <OrderSummaryCard
                 itemTotal={itemTotal}
-                deliveryFee={deliveryFee}
+                deliveryFee={0}
                 total={total}
                 cartCount={cartItems.length}
                 showEstimate={true}

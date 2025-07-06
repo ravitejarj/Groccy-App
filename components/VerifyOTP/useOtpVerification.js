@@ -36,12 +36,15 @@ const useOtpVerification = ({ inputRefs, router }) => {
       const { token, user } = res;
       await AsyncStorage.setItem('token', token);
       await AsyncStorage.setItem('user', JSON.stringify(user));
+      await AsyncStorage.setItem('userId', user._id); // ✅ Required for cart
 
+      // 🧠 New user: go to signup to enter name
       if (!user.firstName || user.firstName.trim() === '') {
         router.replace('/signup');
         return;
       }
 
+      // 🧠 Existing user: check address
       const addressRes = await axios.get(
         `http://192.168.1.150:5000/api/addresses/${user._id}`,
         {
@@ -53,7 +56,7 @@ const useOtpVerification = ({ inputRefs, router }) => {
       if (!addresses || addresses.length === 0) {
         router.replace('/set_location');
       } else {
-        router.replace('/(tabs)');
+        router.replace('/(tabs)'); // ✅ Go to home
       }
     } catch (err) {
       Alert.alert('Verification Failed', err.message || 'Please try again.');

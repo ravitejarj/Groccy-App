@@ -1,10 +1,16 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import { Alert } from 'react-native';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import {
+  addProductToCart,
+  clearUserCart,
+  fetchCartData,
+  fetchVendorInfo,
+  removeProduct,
+  updateProductQty,
+} from './services/cartService';
+
 import ReplaceCartModal from './ReplaceCartModal';
 
-const BASE_URL = 'http://192.168.1.150:5000/api';
 const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
@@ -31,28 +37,17 @@ export const CartProvider = ({ children }) => {
 
   const loadCart = async () => {
     if (!userId) return;
+
     try {
-      const token = await AsyncStorage.getItem('token');
+      const cart = await fetchCartData(userId);
+      const items = cart.items || [];
+      const vendorId = cart.vendorId;
 
-      const res = await axios.get(`${BASE_URL}/cart/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const items = res.data[0]?.items || [];
-      const vendorId = res.data[0]?.vendorId;
-
-      const itemsWithVendor = items.map(item => ({
-        ...item,
-        vendorId,
-      }));
-
+      const itemsWithVendor = items.map((item) => ({ ...item, vendorId }));
       setCartItems(itemsWithVendor);
 
       if (vendorId) {
-        const vendorRes = await axios.get(`${BASE_URL}/vendors/${vendorId}`);
-        const vendor = vendorRes.data;
+        const vendor = await fetchVendorInfo(vendorId);
         setStoreName(vendor.name || '');
         setStoreAddress(`${vendor.street}, ${vendor.city}, ${vendor.state}`);
       } else {
@@ -73,21 +68,17 @@ export const CartProvider = ({ children }) => {
         ? parseFloat(product.price.replace('$', ''))
         : product.price;
 
-    const token = await AsyncStorage.getItem('token');
-
     const body = {
       userId,
       vendorId,
-      productId: product._id, // ✅ fixed here
+      productId: product._id,
       name: product.name,
       price: parsedPrice,
       quantity: 1,
     };
 
     try {
-      await axios.post(`${BASE_URL}/cart/add`, body, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await addProductToCart(body);
       loadCart();
     } catch (err) {
       console.error('❌ Force add to cart failed:', err.message);
@@ -108,31 +99,18 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const token = await AsyncStorage.getItem('token');
-      const productId = product._id; // ✅ fixed here too
-      const existing = cartItems.find(item => item.productId === productId);
+      const productId = product._id;
+      const existing = cartItems.find((item) => item.productId === productId);
       const currentQty = existing ? existing.quantity : 0;
 
       if (existing) {
-        await axios.put(
-          `${BASE_URL}/cart/update`,
-          {
-            userId,
-            vendorId,
-            productId,
-            quantity: currentQty + 1,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        await updateProductQty({ userId, vendorId, productId, quantity: currentQty + 1 });
         await loadCart();
       } else {
         await forceAddToCart(product, vendorId);
       }
     } catch (err) {
       console.error("Add to cart failed:", err.message);
-      Alert.alert("Error", "Failed to update cart");
     }
   };
 
@@ -156,56 +134,29 @@ export const CartProvider = ({ children }) => {
     if (!userId || !vendorId || !productId) return;
 
     try {
-      const token = await AsyncStorage.getItem('token');
-
       if (newQty === 0) {
-        await axios.delete(`${BASE_URL}/cart/remove`, {
-          data: { userId, vendorId, productId },
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await removeProduct(userId, vendorId, productId);
       } else {
-        await axios.put(
-          `${BASE_URL}/cart/update`,
-          {
-            userId,
-            vendorId,
-            productId,
-            quantity: newQty,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        await updateProductQty({ userId, vendorId, productId, quantity: newQty });
       }
-
       await loadCart();
     } catch (err) {
       console.error('Decrease qty failed:', err.message);
-      Alert.alert("Error", "Failed to update quantity");
     }
   };
 
   const removeFromCart = async (productId, vendorId) => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      await axios.delete(`${BASE_URL}/cart/remove`, {
-        data: { userId, vendorId, productId },
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      loadCart();
+      await removeProduct(userId, vendorId, productId);
+      await loadCart();
     } catch (err) {
       console.error('Remove item failed:', err.message);
-      Alert.alert("Error", "Failed to remove item");
     }
   };
 
   const clearCart = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
-      await axios.delete(`${BASE_URL}/cart/clear/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await clearUserCart(userId);
       setCartItems([]);
       setStoreName('');
       setStoreAddress('');
@@ -213,8 +164,6 @@ export const CartProvider = ({ children }) => {
       console.error('Clear cart failed:', err.message);
     }
   };
-
-  if (!userId) return null;
 
   return (
     <CartContext.Provider

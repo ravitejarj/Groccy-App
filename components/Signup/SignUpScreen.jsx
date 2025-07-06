@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import styles from './styles';
 
 // ✅ Reusable FormInput
 const FormInput = ({ label, value, onChangeText, placeholder, ...props }) => (

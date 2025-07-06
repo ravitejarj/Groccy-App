@@ -1,73 +1,46 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  View,
+  BackHandler,
   FlatList,
   Keyboard,
-  TouchableWithoutFeedback,
   RefreshControl,
-  BackHandler,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect, useRouter } from 'expo-router';
 
 import SafeAreaWrapper from '@/components/Common/SafeAreaWrapper';
-import { getUserAddress } from '@/services/AddressService';
-import { getNearbyVendors } from '@/services/NearbyVendorsService';
-import { useCart } from '@/components/Cart/CartContext';
 import { CATEGORY_COLORS } from '@/constants/Colors';
-
 import FixedHeader from './FixedHeader';
-import SearchDropdown from './SearchDropdown';
-import VendorListSection from './VendorListSection';
+import SearchDropdown from './Header/SearchDropdown';
+import VendorListSection from './Vendors/VendorListSection';
+
+import { getFilteredVendors } from './helpers/handleSearchLogic';
+import { useHomeScreenData } from './hooks/useHomeScreenData';
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { loadCart } = useCart();
 
-  const [activeCategory, setActiveCategory] = useState('grocery');
-  const [refreshing, setRefreshing] = useState(false);
-  const [userAddress, setUserAddress] = useState(null);
-  const [searchText, setSearchText] = useState('');
-  const [allVendors, setAllVendors] = useState([]);
+  const {
+    activeCategory,
+    setActiveCategory,
+    refreshing,
+    onRefresh,
+    userAddress,
+    searchText,
+    setSearchText,
+    allVendors,
+    scrollOffset,
+    setScrollOffset,
+  } = useHomeScreenData();
+
   const [filteredVendors, setFilteredVendors] = useState([]);
-  const [scrollOffset, setScrollOffset] = useState(0);
-
-  const fetchData = async () => {
-    try {
-      const userId = await AsyncStorage.getItem('userId');
-      const token = await AsyncStorage.getItem('token');
-      if (!userId || !token) return;
-
-      const address = await getUserAddress(userId, token);
-      setUserAddress(address);
-
-      if (address?.lat && address?.lng) {
-        const data = await getNearbyVendors(address.lat, address.lng, activeCategory);
-        setAllVendors(data);
-      }
-    } catch (err) {
-      console.error('Error loading data:', err);
-    }
-  };
-
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await fetchData();
-    setRefreshing(false);
-  }, [activeCategory]);
-
-  useEffect(() => {
-    fetchData();
-    loadCart();
-  }, [activeCategory]);
 
   useEffect(() => {
     if (!searchText) return setFilteredVendors([]);
-    const filtered = allVendors.filter(v =>
-      v.name?.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredVendors(filtered.slice(0, 5));
+    const filtered = getFilteredVendors(allVendors, searchText);
+    setFilteredVendors(filtered);
   }, [searchText, allVendors]);
 
   useFocusEffect(
@@ -109,7 +82,7 @@ export default function HomeScreen() {
           />
 
           <FlatList
-            data={[1]}
+            data={[1]} // Dummy data to render VendorListSection once
             keyExtractor={() => 'vendorListKey'}
             renderItem={() => (
               <VendorListSection

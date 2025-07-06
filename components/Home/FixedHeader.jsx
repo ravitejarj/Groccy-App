@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
-import HomeHeader from './HomeHeader';
-import SearchBar from './SearchBar';
-import PromoBanner from './PromoBanner';
-import CategorySelector from './CategorySelector';
+import CategorySelector from './Header/CategorySelector';
+import HomeHeader from './Header/HomeHeader';
+import PromoBanner from './Header/PromoBanner';
+import SearchBar from './Header/SearchBar';
 
 const FixedHeader = ({
   searchText,
