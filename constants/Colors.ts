@@ -1,8 +1,3 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
@@ -24,3 +19,23 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
+
+// ✅ Add this block below
+export const CATEGORY_COLORS = {
+  grocery: '#FFF8F1',
+  restaurant: '#F1F9FF',
+  bakery: '#FFF1F4',
+  pharmacy: '#F9FFF1',
+  snacks: '#F5F5FF',
+  drinks: '#F1F1F1',
+};
+
+export const CATEGORY_ACTIVE_COLORS = {
+  grocery: '#4CAF50',
+  restaurant: '#FF7043',
+  stores: '#42A5F5',
+  pharmacy: '#AB47BC',
+  electronics: '#5C6BC0',
+  fashion: '#EC407A',
+};
+
