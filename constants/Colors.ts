@@ -20,22 +20,22 @@ export const Colors = {
   },
 };
 
-// ✅ Add this block below
+// 🎨 Soft Pastel Backgrounds
 export const CATEGORY_COLORS = {
-  grocery: '#FFF8F1',
-  restaurant: '#F1F9FF',
-  bakery: '#FFF1F4',
-  pharmacy: '#F9FFF1',
-  snacks: '#F5F5FF',
-  drinks: '#F1F1F1',
+  grocery: '#F4FBF5',       // softer green
+  restaurant: '#FFF6F0',    // softer orange
+  stores: '#F5F8FF',        // softer blue
+  pharmacy: '#FAF2FF',      // softer purple
+  electronics: '#F3F8FD',   // softer sky blue
+  fashion: '#FFF5F8',       // softer pink
 };
 
+// 🎯 Bold Active Tab Colors
 export const CATEGORY_ACTIVE_COLORS = {
-  grocery: '#4CAF50',
-  restaurant: '#FF7043',
-  stores: '#42A5F5',
-  pharmacy: '#AB47BC',
-  electronics: '#5C6BC0',
-  fashion: '#EC407A',
+  grocery: '#2E7D32',       // green
+  restaurant: '#E64A19',    // orange
+  stores: '#1976D2',        // blue
+  pharmacy: '#8E24AA',      // purple
+  electronics: '#1565C0',   // darker blue
+  fashion: '#D81B60',       // pink
 };
-
