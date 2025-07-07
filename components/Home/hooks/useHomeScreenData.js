@@ -2,6 +2,7 @@ import { useCart } from '@/components/Cart/CartContext';
 import { getUserAddress } from '@/services/AddressService';
 import { getNearbyVendors } from '@/services/NearbyVendorsService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
 
 export const useHomeScreenData = () => {
@@ -20,23 +21,27 @@ export const useHomeScreenData = () => {
       const token = await AsyncStorage.getItem('token');
       if (!userId || !token) return;
 
-      const address = await getUserAddress(userId, token);
+      const data = await getUserAddress(userId, token);
+      const address = Array.isArray(data)
+        ? data.find(addr => addr.isDefault) || data[0]
+        : data;
+
       setUserAddress(address);
 
       if (address?.lat && address?.lng) {
-        const data = await getNearbyVendors(address.lat, address.lng, activeCategory);
-        setAllVendors(data);
+        const vendorData = await getNearbyVendors(address.lat, address.lng, activeCategory);
+        setAllVendors(vendorData);
       }
     } catch (err) {
       console.error('Error loading data:', err);
     }
   };
 
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await fetchData();
-    setRefreshing(false);
-  }, [activeCategory]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [activeCategory])
+  );
 
   useEffect(() => {
     const init = async () => {
@@ -54,7 +59,11 @@ export const useHomeScreenData = () => {
     activeCategory,
     setActiveCategory,
     refreshing,
-    onRefresh,
+    onRefresh: async () => {
+      setRefreshing(true);
+      await fetchData();
+      setRefreshing(false);
+    },
     userAddress,
     searchText,
     setSearchText,

@@ -39,3 +39,10 @@ export const CATEGORY_ACTIVE_COLORS = {
   electronics: '#1565C0',   // darker blue
   fashion: '#D81B60',       // pink
 };
+
+// 🧭 Distance-based color helper
+export const getDistanceColor = (distance: number): string => {
+  if (distance < 5) return '#2E7D32';     // green
+  if (distance <= 10) return '#F9A825';   // yellow
+  return '#D32F2F';                       // red
+};

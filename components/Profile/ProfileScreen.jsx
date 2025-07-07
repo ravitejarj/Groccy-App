@@ -21,7 +21,7 @@ export default function ProfileScreen() {
           title="ACCOUNT"
           items={[
             { label: '📝 Edit Profile', route: '/profile_update' },
-            { label: '📍 My Address', route: '/address_update' },
+            { label: '📍 My Address', route: '/address_form' },
             { label: '🧾 My Orders', onPress: () => router.push('/orders') },
           ]}
         />

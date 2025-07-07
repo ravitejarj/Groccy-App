@@ -11,7 +11,6 @@ export default function Layout() {
         <Stack.Screen name="splashscreen_3" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" options={{ headerShown: false }} />
         <Stack.Screen name="address_form" options={{ headerShown: false }} />
-        <Stack.Screen name="address_update" options={{ headerShown: false }} />
         <Stack.Screen name="chat_support" options={{ headerShown: false }} />
         <Stack.Screen name="checkout_screen" options={{ headerShown: false }} />
         <Stack.Screen name="confirm_location_screen" options={{ headerShown: false }} />

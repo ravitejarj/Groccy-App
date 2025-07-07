@@ -95,7 +95,7 @@ export default function CheckoutScreen() {
         <AddressInfoCard
           address={address}
           user={user}
-          onEditAddress={() => router.push('/address_update')}
+          onEditAddress={() => router.push('/address_from')}
         />
 
         <PaymentInfoCard
