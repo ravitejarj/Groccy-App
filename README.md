@@ -19,6 +19,13 @@ Groccy is a private, mobile-first grocery delivery app designed specifically for
 - `assets/` – Fonts, icons, splash images, and animations
 - `services/` – API integration (auth, vendors, products, cart, etc.)
 - `samples/` – Preview images of the Groccy app (📸 private usage only)
+## 📱 App Preview
+
+<p float="left">
+  <img src="samples/App%201.jpeg" width="200"/>
+  <img src="samples/App%202.jpeg" width="200"/>
+  <img src="samples/App%203.jpeg" width="200"/>
+</p>
 
 ## 🧪 Local Development
 
