@@ -1,50 +1,27 @@
-# Welcome to your Expo app 👋
+# Groccy – Indian Grocery Delivery App (Private)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Groccy is a private, mobile-first grocery delivery app designed specifically for Indian stores and users in the USA. The frontend is built using React Native and supports seamless features like:
 
-## Get started
+- 📍 Location-based vendor discovery
+- 🛒 Smart cart & checkout system
+- 📦 Order tracking with live status
+- 🔐 OTP authentication and address verification
+- 💳 Card payment interface
+- 🔔 In-app notifications
+- 🎉 Modern UI with splash animations
 
-1. Install dependencies
+> 📌 **Note**: This app is developed as part of a private startup experiment and is not intended for public release or reuse.
 
-   ```bash
-   npm install
-   ```
+## 📂 Folder Highlights
 
-2. Start the app
+- `app/` – Navigation & core screens (Login, Signup, Cart, Orders, etc.)
+- `components/` – Reusable UI components organized by module
+- `assets/` – Fonts, icons, splash images, and animations
+- `services/` – API integration (auth, vendors, products, cart, etc.)
+- `samples/` – Preview images of the Groccy app (📸 private usage only)
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 🧪 Local Development
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm install
+npm run start
