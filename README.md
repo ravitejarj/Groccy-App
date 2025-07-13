@@ -27,7 +27,6 @@ Groccy is a private, mobile-first grocery delivery app designed specifically for
   <img src="samples/App%203.jpeg" width="200"/>
   <img src="samples/App%204.jpeg" width="200"/>
   <img src="samples/App%205.jpeg" width="200"/>
-  <img src="samples/App%206.jpeg" width="200"/>
 </p>
 
 ## 🧪 Local Development
